@@ -1,15 +1,22 @@
+import styles from '../../styles/_variables.scss'
 import { EBirdState } from "../interfaces";
 
 export class Bird {
-  position: {x: number, y: number};
+  position: { x: number, y: number };
   state: EBirdState;
   force: number;
+
+  lives: number;
+  livesElement: HTMLDivElement;
 
   htmlElement: HTMLDivElement;
 
   constructor() {
+    this.lives = 3;
+    this.livesElement = document.getElementById('lives') as HTMLDivElement;
+    this.drawLives();
     this.htmlElement = document.getElementById('bird') as HTMLDivElement;
-    this.position = {x: 50, y: 300};
+    this.position = { x: 50, y: 300 };
     this.setPosition();
     this.state = EBirdState.midflap;
     this.force = 0;
@@ -62,6 +69,20 @@ export class Bird {
   }
 
   die() {
+    this.lives -= 1;
+    this.drawLives();
+  }
+
+  drawLives() {
+    const digits = this.lives.toString().split('');
+    const images = digits.map(digit => {
+      const item = document.createElement('img');
+      item.src = `assets/sprites/${digit}.png`;
+      return item;
+    })
+
+    this.livesElement.innerHTML = '';
+    this.livesElement.append(...images);
   }
 
 }

@@ -11,6 +11,14 @@ body, html {
   height: 100%;
 }
 
+#lives {
+  z-index: 10;
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  transform: translateX(-50%) scale($scale-multiplier);
+}
+
 #score {
   z-index: 10;
   position: absolute;

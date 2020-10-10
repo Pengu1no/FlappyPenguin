@@ -46,6 +46,8 @@ export class Game {
     document.getElementById('background').className = 'day';
     this.menu();
     this.score = 0;
+    this.bird.lives = 3;
+    this.bird.drawLives();
     this.setScore();
     this.speed = 1;
     this.playerCoords = {
@@ -126,8 +128,25 @@ export class Game {
 
   tick() {
     if (this.pipes[0]?.overlaps(this.bird) || this.bird.onFloor()) {
+      this.bird.die();
+      this.speed = 1;
+      this.playerCoords = {
+        x: 50,
+        y: 300,
+      }
+
+      this.bird.position = this.playerCoords;
+      this.bird.setPosition();
+
+      this.pipes.forEach(pipe => pipe.destroy());
+      this.pipes = [];
+      const color = this.daytime === 'day' ? 'green' : 'red';
+      this.pipes = Array.from({length: 8}, (x, i) => i).map(idx => new Pipe((idx + 1) * 300, color, this.calculateHeight(idx)));
+    }
+    if (this.bird.lives == 0) {
       return this.gameOver();
     }
+
     const move = this.speed;
     this.bird.tick();
     this.pipes.forEach(pipe => pipe.tick(move));
