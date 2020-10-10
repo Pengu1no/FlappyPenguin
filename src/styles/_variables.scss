@@ -1,0 +1,21 @@
+$bird-width: 34px;
+$bird-height: 24px;
+
+$pipe-width: 52px;
+$pipe-height: 320px;
+
+$background-height: 80%;
+
+$scale-multiplier: 1.5;
+
+$window-distance-multiplier: 6;
+
+:export {
+  birdWidth: $bird-width;
+  birdHeight: $bird-height;
+  pipeWidth: $pipe-width;
+  pipeHeight: $pipe-height;
+  bgHeight: $background-height;
+  scaleMultiplier: $scale-multiplier;
+  windowDistanceMultiplier: $window-distance-multiplier;
+}
